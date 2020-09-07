@@ -16,12 +16,12 @@ class Board:
         self.dealer = dealer
         self.dealer.set_blinds()
         self.rounds()
-        
+
 
 
     # Print board and update/reset variables
     def print_board(self):
-        
+
         # Prints after the each betting round is complete
         # Prints Player (#, cards, funds, player call)
         # player call (unnecessary with the conditions added later)
@@ -32,8 +32,8 @@ class Board:
                 ' >> $: {player_funds}' \
                 ' >> Position: {player_position}' \
                 ' >> Action: {player_action}'.format(
-                player_num = player_num, 
-                player_cards = player.player_cards, 
+                player_num = player_num,
+                player_cards = player.player_cards,
                 player_funds = player.funds,
                 player_position = player.player_position(),
                 player_action = player.player_call
@@ -49,7 +49,7 @@ class Board:
 
     # Manages betting and drawing rounds
     def rounds(self):
-        
+
         # List of the betting rounds
         self.bet_round = ['Pre-flop Betting', '2nd Betting', '3rd Betting', '4th Betting']
         # Dict of draw rounds with # of cards drawn for each
@@ -95,8 +95,8 @@ class Board:
 
 
         for player_num, player in self.players.items():
-            # Calls player summary 
-            player.player_summary(player_num)
+            # Calls player summary
+            player.player_summary(player_num, betting_round)
             #print('Hand Strength: ', player.hand_strength())
             # Call player_state func, then pass the player_state into check function to update check state
             #player.player_state(self.community.can_check())
@@ -111,12 +111,12 @@ class Board:
         while list(set([player.bet_amt for player_num, player in self.players.items() if player.player_cards != []]))[0] != self.community.match_raise:
 
             #print(list(set([player.bet_amt for player_num, player in self.players.items() if player.player_call != 'F']))[0])
-            print('All remaining player bets must match the current high bet. \n Amount to match: ${match}'.format(match=self.community.match_raise), 
+            print('All remaining player bets must match the current high bet. \n Amount to match: ${match}'.format(match=self.community.match_raise),
                 '\n [C]all, [R]aise, or [F]old')
 
             for player_num, player in self.players.items():
                 if player.player_call != 'F' and player.bet_amt < self.community.match_raise:
-                    player.player_summary(player)
+                    player.player_summary(player_num, betting_round)
                     #player.player_state(self.community.can_check())
                     player.player_history(player.player_state(self.community.can_check()), betting_round)
 
@@ -138,7 +138,7 @@ class Board:
         if len(self.WINNER) == 1:
             self.round_winner = True
             print('\n' + WIN_BY_FOLD)
-            #self.WINNER = self.still_playing            
+            #self.WINNER = self.still_playing
         # i thought maybe it wasn't working since there weren't enough cards and it was giving a list index out of range error
         if round_counter == 3:
             # What happens when somebody folds?
@@ -182,7 +182,7 @@ class Board:
                 for p in list(WINNER.keys()):
                     self.players[p].funds += self.community.pot/len(WINNER)
             else:
-            
+
                 print('\n 🎉🎉🎉 Player {} wins!'.format(*WINNER.keys()))
                 # wtf am i doing here
                 for player_num, players in self.players.items():
@@ -199,7 +199,7 @@ class Board:
                 self.community.pot = 0
                 # reset community hand
                 self.community.comm_cards = []
-            
+
             print('\n' + UPDATING,
             '\n' + FILLER,
             '\n' + FILLER,

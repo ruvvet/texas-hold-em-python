@@ -166,7 +166,7 @@ class Player:
 
     # Player summary that is called during each betting around
     # Placed here to prevent reptition when it is needed
-    def player_summary(self, player):
+    def player_summary(self, player, bet_round):
         print('\n >> Turn : PLAYER {player_num} // {player_position}' \
             '\n >> Your Cards: {uni_cards} {cards}' \
             '\n >> Your Funds: ${player_funds}' \
@@ -180,7 +180,7 @@ class Player:
                 player_bet=self.bet_amt,
                 # issues with calling the bet round because player_history function has not yet
                 # been called, so calling specific values in the dict gives an error
-                player_history = self.history
+                player_history = self.history[bet_round] if bet_round in self.history else []
 
                 )
             )
