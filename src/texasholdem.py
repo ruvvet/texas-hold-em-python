@@ -1,9 +1,9 @@
 from board import Board
-from deck import Deck 
+from deck import Deck
 from cards import Cards
-from player import Player 
-from community import Community 
-from dealer import Dealer 
+from player import Player
+from community import Community
+from dealer import Dealer
 from utils import input_num, input_str
 
 
@@ -14,8 +14,6 @@ START_AMT = 'Starting funds for each player: $  '
 GAME_START = '🎲-GAME START-🎲'
 ROUND_START = '🎲-STARTING A NEW ROUND-🎲'
 DEALING_PLAYER_CARDS = '...Dealing cards to players...'
-
-
 
 
 # Main Class
@@ -58,10 +56,13 @@ class TexasHoldEm:
         #   deck - to draw cards
         #   big blind
         #   community - to get check state, raise amount
-        self.players = {x+1:Player(self.start_amt, self.deck, self.blind_amt, self.community) for x in range(self.n)}
-        
+        self.players = {
+            x+1: Player(
+                self.start_amt, self.deck, self.blind_amt, self.community)
+            for x in range(self.n)}
+
         # Make a dealer class to handle who is the dealer
-        # Takes the players, blind, and community classes as arguments        
+        # Takes the players, blind, and community classes as arguments
         self.dealer = Dealer(self.players, self.blind_amt, self.community)
 
         # new players dictionary is ordered by order
@@ -73,14 +74,7 @@ class TexasHoldEm:
         #   Community
         self.board = Board(self.players, self.community, self.dealer)
 
-
-
-
-        while self.check_final_winner(self.players) == False:
-
-
-
-
+        while not self.check_final_winner(self.players):
             print('players still in the game', ','.join([str(player_num) for player_num, player in self.players.items() if player.funds > (self.blind_amt*2)]))
             self.players = {player_num: player for player_num, player in self.players.items() if player.funds > (self.blind_amt*2)}
             self.check_final_winner(self.players)
@@ -89,22 +83,20 @@ class TexasHoldEm:
             self.dealer.dealer = (self.dealer.dealer + 1) % len(self.players)
 
             # start next round
-            print('\n' + ROUND_START +'\n'+ DEALING_PLAYER_CARDS)
+            print('\n' + ROUND_START + '\n' + DEALING_PLAYER_CARDS)
             board = Board(self.players, self.community, self.dealer)
-            
 
-        print ('\n PLAYER {winner} wins it all!'.format(winner = [player_num for player_num, player in self.players.items()][0]))
-
+        print('\n PLAYER {winner} wins it all!'.format(winner=[player_num for player_num, player in self.players.items()][0]))
 
     # check for final winner?
     # if everyone else has 0 funds
     # should return true if there is only 1 player left
     def check_final_winner(self, players_still_playing):
-        #return len([player.funds for player_num, player in self.players.items() if player.funds >0]) == 1
+        # return len([player.funds for player_num, player in self.players.items() if player.funds >0]) == 1
 
         if len(players_still_playing) == 1:
-            print ('PLAYER {winner} wins it all!'.format(winner = [player_num for player_num, player in players_still_playing.items()][0]))
+            print('PLAYER {winner} wins it all!'.format(winner = [player_num for player_num, player in players_still_playing.items()][0]))
             return True
 
         return False
-        #return len(players_still_playing) == 1
+        # return len(players_still_playing) == 1

@@ -10,9 +10,9 @@ class Dealer:
         self.players = players
         self.blind_amt = blind
         self.community = community
-   
+
         # This randomly selects a random player to start as the first dealer
-        self.dealer = random.randint(0,len(players)-1)
+        self.dealer = random.randint(0, len(players)-1)
 
     # If the player number = the dealer #, that player is the dealer
     # Sets the is_dealer variable in the player class to true
@@ -29,12 +29,11 @@ class Dealer:
             if player_num == ((self.dealer + 2) % len(self.players)) + 1:
                 player.is_little_blind = True
                 player.bet_amt = self.blind_amt
-         
 
     def bet_order(self):
-        self.betting_order = [(((self.dealer + x) % len(self.players)) + 1) for x in self.players.keys()]
-        self.order = {order:self.players[order] for order in self.betting_order}
+        self.betting_order = [(((self.dealer + x+2) % len(self.players)) + 1) for x in self.players.keys()]
+        self.order = {order: self.players[order] for order in self.betting_order}
         print(self.betting_order)
         print(self.order)
-        
+
         return self.order

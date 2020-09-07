@@ -11,6 +11,7 @@ PLAYER_MATCH = 'You have matched the bet: $'
 PLAYER_RAISE = 'You have raised the bid to: $'
 FUNDS_LOW_ERROR = 'Insufficient funds.'
 
+
 # Player Class
 #   One instance for each player
 #   Tracks all variables related to individual player
@@ -97,14 +98,14 @@ class Player:
                     )
                 )
                 self.bet_amt = self.input_money(RAISE_AMT) + self.community.match_raise
-                
+
                 # !!! Set it to that 'Raise' always is added to the current highest bid.
                 # Circumvents the issue of needing a check
-                
-                
+
+
                 # print('raised bet', self.bet_amt)
                 # self.bet_diff = abs(self.community.match_raise - self.bet_amt) + 1
-                
+
                 # # If player wants to raise, must be greater than current highest raise
                 # while self.bet_amt <= self.community.match_raise:
                 #     print('Bet ${diff} more to raise the current high bet of ${bet}.'.format(
@@ -120,7 +121,7 @@ class Player:
                     raise_amt = self.bet_amt,
                     bet = self.community.match_raise
                 ))
-                    
+
 
                     # self.player_funds(self.bet_amt)
                     # self.community.update_pot(self.bet_amt)
@@ -135,7 +136,7 @@ class Player:
                     # self.player_funds(self.community.match_raise)
                     # self.community.update_pot(self.community.match_raise)
                     print(PLAYER_MATCH, self.community.match_raise)
-                
+
 
 
             return self.player_call
@@ -162,9 +163,9 @@ class Player:
         self.history[bet_round].append(call)
 
 
-        
+
     # Player summary that is called during each betting around
-    # Placed here to prevent reptition when it is needed    
+    # Placed here to prevent reptition when it is needed
     def player_summary(self, player):
         print('\n >> Turn : PLAYER {player_num} // {player_position}' \
             '\n >> Your Cards: {uni_cards} {cards}' \
@@ -172,7 +173,7 @@ class Player:
             '\n >> Current Bet: ${player_bet}' \
             '\n >> Player History: {player_history}'.format(
                 player_num = player,
-                player_position=self.player_position(), 
+                player_position=self.player_position(),
                 uni_cards = self.cards.print_cards2(self.player_cards),
                 cards=self.cards.print_cards(self.player_cards),
                 player_funds=self.funds,

@@ -1,5 +1,6 @@
 from cards import Cards
 
+
 # Community Class
 # Manages community cards on the table
 # Manages most shared states/variables
@@ -28,7 +29,7 @@ class Community:
 
         # Update pot
         self.pot += bet_amt
-        
+
     # Update check state to false if a bet was made
     # If no raises were made, ie: match_raise = 0
     # Players can check
@@ -42,5 +43,5 @@ class Community:
         #     self.check = False
         # else:
         #     self.check = True
-        #return len(list(filter(None,[True if player.player_call != 'R' else False for player_num, player in self.players.items()]))) == len(self.players.keys())
-        return self.match_raise ==0
+        # return len(list(filter(None,[True if player.player_call != 'R' else False for player_num, player in self.players.items()]))) == len(self.players.keys())
+        return self.match_raise == 0
