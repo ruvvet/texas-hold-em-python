@@ -75,8 +75,15 @@ class TexasHoldEm:
         self.board = Board(self.players, self.community, self.dealer)
 
         while not self.check_final_winner(self.players):
-            print('players still in the game', ','.join([str(player_num) for player_num, player in self.players.items() if player.funds > (self.blind_amt*2)]))
-            self.players = {player_num: player for player_num, player in self.players.items() if player.funds > (self.blind_amt*2)}
+            print('players still in the game', ','.join(
+                [str(player_num) for player_num, player in self.players.items()
+                    if player.funds > (self.blind_amt*2)]
+                ))
+            self.players = {
+                player_num: player for player_num, player
+                in self.players.items()
+                if player.funds > (self.blind_amt*2)
+                            }
             self.check_final_winner(self.players)
 
             # Update dealer
@@ -86,16 +93,23 @@ class TexasHoldEm:
             print('\n' + ROUND_START + '\n' + DEALING_PLAYER_CARDS)
             board = Board(self.players, self.community, self.dealer)
 
-        print('\n PLAYER {winner} wins it all!'.format(winner=[player_num for player_num, player in self.players.items()][0]))
+        print('\n PLAYER {winner} wins it all!'.format(
+            winner=[player_num for player_num, player
+                    in self.players.items()][0]
+            ))
 
     # check for final winner?
     # if everyone else has 0 funds
     # should return true if there is only 1 player left
     def check_final_winner(self, players_still_playing):
-        # return len([player.funds for player_num, player in self.players.items() if player.funds >0]) == 1
+        # return len([player.funds for player_num, player
+        # in self.players.items() if player.funds >0]) == 1
 
         if len(players_still_playing) == 1:
-            print('PLAYER {winner} wins it all!'.format(winner = [player_num for player_num, player in players_still_playing.items()][0]))
+            print('PLAYER {winner} wins it all!'.format(
+                winner=[player_num for player_num, player
+                        in players_still_playing.items()][0]
+                ))
             return True
 
         return False

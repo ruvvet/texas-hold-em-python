@@ -19,7 +19,6 @@ class Dealer:
     # Uses modulo to set the other blinds
     # might need to do -1, -2 as blinds should be to the left of the dealer
     def set_blinds(self):
-        print('dealer', self.dealer+1)
         for player_num, player in self.players.items():
             if player_num == self.dealer + 1:
                 player.is_dealer = True
@@ -31,9 +30,11 @@ class Dealer:
                 player.bet_amt = self.blind_amt
 
     def bet_order(self):
-        self.betting_order = [(((self.dealer + x+2) % len(self.players)) + 1) for x in self.players.keys()]
-        self.order = {order: self.players[order] for order in self.betting_order}
-        print(self.betting_order)
-        print(self.order)
-
+        self.betting_order = [
+            (((self.dealer + x+2) % len(self.players)) + 1)
+            for x in self.players.keys()
+            ]
+        self.order = {
+            order: self.players[order] for order in self.betting_order
+            }
         return self.order

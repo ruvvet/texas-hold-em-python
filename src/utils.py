@@ -1,6 +1,7 @@
 INPUT_ERROR_INT = 'Must be an integer. Try again.'
 INPUT_ERROR_STR = 'Must be either K, C, R, F. Try again.'
 
+
 # Input validation
 def input_num(message):
     while True:

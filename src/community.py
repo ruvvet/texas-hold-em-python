@@ -43,5 +43,7 @@ class Community:
         #     self.check = False
         # else:
         #     self.check = True
-        # return len(list(filter(None,[True if player.player_call != 'R' else False for player_num, player in self.players.items()]))) == len(self.players.keys())
+        # return len(list(filter(None,[True if player.player_call != 'R'
+        # else False for player_num, player in self.players.items()])))
+        # == len(self.players.keys())
         return self.match_raise == 0
